@@ -1,4 +1,4 @@
-package c102.com.ourohead.model;
+package io.ourohead.web.dto;
 
 import lombok.Data;
 import java.util.List;

@@ -1,9 +1,9 @@
-package c102.com.ourohead.controller;
+package io.ourohead.web.controller;
 
-import c102.com.ourohead.model.ApiDefinition;
-import c102.com.ourohead.model.Endpoint;
-import c102.com.ourohead.service.ApiDefinitionService;
-import c102.com.ourohead.service.DummyDataGenerator;
+import io.ourohead.web.dto.ApiDefinition;
+import io.ourohead.web.dto.Endpoint;
+import io.ourohead.api.service.ApiDefinitionService;
+import io.ourohead.mock.service.DummyDataGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

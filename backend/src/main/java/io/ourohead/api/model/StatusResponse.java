@@ -1,4 +1,4 @@
-package c102.com.ourohead.model;
+package io.ourohead.api.model;
 
 import lombok.Data;
 

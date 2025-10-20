@@ -1,7 +1,7 @@
-package c102.com.ourohead.service;
+package io.ourohead.mock.service;
 
-import c102.com.ourohead.model.Endpoint;
-import c102.com.ourohead.model.StatusResponse;
+import io.ourohead.web.dto.Endpoint;
+import io.ourohead.api.model.StatusResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 @RestController
 @RequiredArgsConstructor
-public class DynamicEndpointController {
+public class DynamicEndpointGenerator {
 
     private final DummyDataGenerator dummyDataGenerator;
     private final Map<String, Endpoint> endpointRegistry = new ConcurrentHashMap<>();

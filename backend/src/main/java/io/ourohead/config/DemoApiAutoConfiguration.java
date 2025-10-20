@@ -1,6 +1,7 @@
-package c102.com.ourohead.config;
+package io.ourohead.config;
 
-import c102.com.ourohead.service.*;
+import io.ourohead.api.service.*;
+import io.ourohead.mock.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @AutoConfiguration
 @ConditionalOnClass(WebMvcConfigurer.class)
 @ConditionalOnProperty(prefix = "ourohead", name = "enabled", havingValue = "true", matchIfMissing = true)
-@ComponentScan(basePackages = "c102.com.ourohead")
+@ComponentScan(basePackages = "io.ourohead")
 public class DemoApiAutoConfiguration {
 
     /**
@@ -54,7 +55,7 @@ public class DemoApiAutoConfiguration {
      */
     @Bean
     @ConditionalOnMissingBean
-    public DynamicEndpointController dynamicEndpointController(DummyDataGenerator dummyDataGenerator) {
-        return new DynamicEndpointController(dummyDataGenerator);
+    public DynamicEndpointGenerator dynamicEndpointController(DummyDataGenerator dummyDataGenerator) {
+        return new DynamicEndpointGenerator(dummyDataGenerator);
     }
 }

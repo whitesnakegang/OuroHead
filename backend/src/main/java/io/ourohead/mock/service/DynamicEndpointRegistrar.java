@@ -1,7 +1,8 @@
-package c102.com.ourohead.service;
+package io.ourohead.mock.service;
 
-import c102.com.ourohead.model.ApiDefinition;
-import c102.com.ourohead.model.Endpoint;
+import io.ourohead.web.dto.ApiDefinition;
+import io.ourohead.web.dto.Endpoint;
+import io.ourohead.api.service.ApiYamlParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class DynamicEndpointRegistrar {
     private final RequestMappingHandlerMapping handlerMapping;
     private final ApiYamlParser apiYamlParser;
     private final DummyDataGenerator dummyDataGenerator;
-    private final DynamicEndpointController dynamicEndpointController;
+    private final DynamicEndpointGenerator dynamicEndpointGenerator;
 
     /**
      * Registers dynamic API endpoints defined in classpath:api.yml during application startup.
@@ -68,17 +69,17 @@ public class DynamicEndpointRegistrar {
                     .methods(requestMethod)
                     .build();
 
-            Method controllerMethod = DynamicEndpointController.class.getMethod("handleRequest", jakarta.servlet.http.HttpServletRequest.class);
+            Method controllerMethod = DynamicEndpointGenerator.class.getMethod("handleRequest", jakarta.servlet.http.HttpServletRequest.class);
 
             handlerMapping.registerMapping(
                     mappingInfo,
-                    dynamicEndpointController,
+                    dynamicEndpointGenerator,
                     controllerMethod
             );
 
             // Store endpoint metadata for the controller to use (key: path:method)
             String key = endpoint.getPath() + ":" + endpoint.getMethod().toUpperCase();
-            dynamicEndpointController.registerEndpoint(key, endpoint);
+            dynamicEndpointGenerator.registerEndpoint(key, endpoint);
 
             log.info("Registered endpoint: {} {}", endpoint.getMethod(), endpoint.getPath());
         } catch (Exception e) {

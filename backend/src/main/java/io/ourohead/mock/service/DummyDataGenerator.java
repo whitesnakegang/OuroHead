@@ -1,7 +1,7 @@
-package c102.com.ourohead.service;
+package io.ourohead.mock.service;
 
-import c102.com.ourohead.model.Field;
-import c102.com.ourohead.model.Response;
+import io.ourohead.api.model.Field;
+import io.ourohead.api.model.Response;
 import lombok.extern.slf4j.Slf4j;
 import net.datafaker.Faker;
 import org.springframework.stereotype.Service;

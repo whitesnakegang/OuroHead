@@ -1,8 +1,9 @@
-package c102.com.ourohead.model;
+package io.ourohead.web.dto;
 
+import io.ourohead.api.model.Request;
+import io.ourohead.api.model.StatusResponse;
 import lombok.Data;
 import java.util.List;
-import java.util.Map;
 
 @Data
 public class Endpoint {

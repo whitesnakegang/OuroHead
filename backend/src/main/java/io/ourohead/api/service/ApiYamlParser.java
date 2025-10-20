@@ -1,6 +1,6 @@
-package c102.com.ourohead.service;
+package io.ourohead.api.service;
 
-import c102.com.ourohead.model.ApiDefinition;
+import io.ourohead.web.dto.ApiDefinition;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import lombok.extern.slf4j.Slf4j;
