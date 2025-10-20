@@ -1,7 +1,7 @@
-package c102.com.demoapigen.service;
+package c102.com.ourohead.service;
 
-import c102.com.demoapigen.model.Endpoint;
-import c102.com.demoapigen.model.StatusResponse;
+import c102.com.ourohead.model.Endpoint;
+import c102.com.ourohead.model.StatusResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

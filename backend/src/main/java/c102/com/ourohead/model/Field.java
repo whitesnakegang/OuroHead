@@ -1,4 +1,4 @@
-package c102.com.demoapigen.model;
+package c102.com.ourohead.model;
 
 import lombok.Data;
 import java.util.List;

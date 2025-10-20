@@ -1,9 +1,9 @@
-package c102.com.demoapigen.controller;
+package c102.com.ourohead.controller;
 
-import c102.com.demoapigen.model.ApiDefinition;
-import c102.com.demoapigen.model.Endpoint;
-import c102.com.demoapigen.service.ApiDefinitionService;
-import c102.com.demoapigen.service.DummyDataGenerator;
+import c102.com.ourohead.model.ApiDefinition;
+import c102.com.ourohead.model.Endpoint;
+import c102.com.ourohead.service.ApiDefinitionService;
+import c102.com.ourohead.service.DummyDataGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +13,7 @@ import java.util.Map;
 
 @Slf4j
 @RestController
-@RequestMapping("/demoapigen/api")
+@RequestMapping("/ourohead/api")
 @RequiredArgsConstructor
 public class EditorApiController {
 

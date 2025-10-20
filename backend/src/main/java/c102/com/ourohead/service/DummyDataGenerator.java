@@ -1,7 +1,7 @@
-package c102.com.demoapigen.service;
+package c102.com.ourohead.service;
 
-import c102.com.demoapigen.model.Field;
-import c102.com.demoapigen.model.Response;
+import c102.com.ourohead.model.Field;
+import c102.com.ourohead.model.Response;
 import lombok.extern.slf4j.Slf4j;
 import net.datafaker.Faker;
 import org.springframework.stereotype.Service;
@@ -71,6 +71,7 @@ public class DummyDataGenerator {
      * @param arrayItemType the schema for array items; if `null`, each element is a random lorem word,
      *                      otherwise each element is produced by `generateFieldValue` for this field
      * @return a list containing between 3 and 9 generated elements (size chosen randomly between 3 and 10 exclusive of 10)
+     */
     private List<Object> generateArray(Field arrayItemType) {
         List<Object> array = new ArrayList<>();
         int arraySize = faker.number().numberBetween(3, 10);
