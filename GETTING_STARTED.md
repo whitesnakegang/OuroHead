@@ -1,4 +1,4 @@
-# DemoApiGen - Dynamic API Mock Generator
+# OuroHead - Dynamic API Mock Generator
 
 Spring Boot 라이브러리로, `api.yml` 파일을 읽고 동적으로 더미 API 엔드포인트를 생성하는 라이브러리입니다. Faker 라이브러리를 사용하여 의미있는 더미 데이터를 자동으로 생성하며, 프론트엔드 개발 시 백엔드 API 완성을 기다리지 않고 개발할 수 있도록 도와줍니다.
 
@@ -8,7 +8,7 @@ Spring Boot 라이브러리로, `api.yml` 파일을 읽고 동적으로 더미 A
 - **동적 엔드포인트 등록** (애플리케이션 시작 시 자동)
 - **Faker 라이브러리 통합** - 실제와 유사한 더미 데이터 생성
 - **스마트 타입 추론** - 필드명만으로 자동으로 적절한 더미 데이터 생성
-- **웹 기반 에디터** - React로 만든 GUI에서 API 정의 편집 (`/demoapigen/editor`)
+- **웹 기반 에디터** - React로 만든 GUI에서 API 정의 편집 (`/ourohead/editor`)
 - **다양한 인증 방식 지원** (Bearer Token, Basic Auth, API Key, Custom Header)
 - **Status Code별 응답 설정** - 200, 201, 400, 401, 403 등 각각 다른 응답 정의
 - **X-Mock-Status 헤더** - 개발 중 특정 에러 상황 강제 테스트 가능
@@ -37,7 +37,7 @@ Spring Boot 라이브러리로, `api.yml` 파일을 읽고 동적으로 더미 A
 
 ```gradle
 dependencies {
-    implementation 'io.c102:demoapigen:1.0.0'
+    implementation 'io.ourohead:ourohead:1.0.0'
 }
 ```
 
@@ -45,8 +45,8 @@ dependencies {
 
 ```xml
 <dependency>
-    <groupId>io.c102</groupId>
-    <artifactId>demoapigen</artifactId>
+    <groupId>io.ourohead</groupId>
+    <artifactId>ourohead</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
@@ -223,7 +223,7 @@ curl -H "Authorization: Bearer test-token" \
 Spring Boot 애플리케이션을 실행한 후:
 
 ```
-http://localhost:8080/demoapigen/editor
+http://localhost:8080/ourohead/editor
 ```
 
 ### 기능
@@ -484,34 +484,54 @@ npm run dev    # 개발 서버 실행 (localhost:5173)
 npm run build  # 프로덕션 빌드
 ```
 
-빌드된 파일은 `src/main/resources/static/demoapigen/`에 자동으로 저장되며, 라이브러리 JAR에 포함됩니다.
+빌드된 파일은 `src/main/resources/static/ourohead/`에 자동으로 저장되며, 라이브러리 JAR에 포함됩니다.
 
 자세한 내용은 [frontend/README.md](frontend/README.md)를 참고하세요.
 
 ## 프로젝트 구조
 
 ```
-src/main/java/c102/com/demoapigen/
-├── config/
+src/main/java/io/ourohead/
+├── web/                                     # 웹 에디터 도메인
+│   ├── controller/
+│   │   ├── EditorViewController.java       # 에디터 뷰 컨트롤러
+│   │   └── EditorApiController.java        # 에디터 REST API
+│   ├── dto/
+│   │   ├── ApiDefinition.java              # API 정의 DTO
+│   │   └── Endpoint.java                   # 엔드포인트 DTO
+│   └── service/
+│
+├── api/                                     # API 스키마 관리 도메인
+│   ├── controller/
+│   ├── dto/
+│   ├── service/
+│   │   ├── ApiDefinitionService.java       # API 정의 관리
+│   │   └── ApiYamlParser.java              # YAML 파서
+│   ├── model/
+│   │   ├── Request.java                    # Request 모델
+│   │   ├── Response.java                   # Response 모델
+│   │   ├── Field.java                      # 필드 모델
+│   │   └── StatusResponse.java             # Status code별 응답 모델
+│   └── repository/
+│
+├── mock/                                    # Mock 서버 도메인
+│   ├── controller/
+│   │   └── DynamicEndpointController.java  # 동적 엔드포인트 컨트롤러 (인증, 응답 처리)
+│   ├── dto/
+│   ├── service/
+│   │   ├── DummyDataGenerator.java         # 더미 데이터 생성기 (스마트 타입 추론)
+│   │   └── DynamicEndpointRegistrar.java   # 동적 엔드포인트 등록
+│   ├── model/
+│   └── repository/
+│
+├── config/                                  # 공통 설정
 │   ├── DemoApiAutoConfiguration.java       # Spring Boot Auto-configuration
 │   ├── DemoApiGenProperties.java           # 설정 프로퍼티
 │   └── WebConfig.java                      # 정적 리소스 설정
-├── controller/
-│   ├── EditorApiController.java            # 에디터 REST API
-│   └── EditorViewController.java           # 에디터 뷰 컨트롤러
-├── model/
-│   ├── ApiDefinition.java                  # API 정의 모델
-│   ├── Endpoint.java                       # 엔드포인트 모델
-│   ├── StatusResponse.java                 # Status code별 응답 모델
-│   ├── Request.java                        # Request 모델
-│   ├── Response.java                       # Response 모델
-│   └── Field.java                          # 필드 모델
-└── service/
-    ├── ApiYamlParser.java                  # YAML 파서
-    ├── ApiDefinitionService.java           # API 정의 관리
-    ├── DummyDataGenerator.java             # 더미 데이터 생성기 (스마트 타입 추론)
-    ├── DynamicEndpointRegistrar.java       # 동적 엔드포인트 등록
-    └── DynamicEndpointController.java      # 엔드포인트 컨트롤러 (인증, 응답 처리)
+│
+└── common/                                  # 공통 유틸리티
+    ├── exception/
+    └── util/
 
 frontend/
 ├── src/
@@ -551,7 +571,7 @@ cd frontend && npm run build && cd ..
 `build.gradle` 파일에서:
 
 ```gradle
-group = 'io.c102'  // 원하는 그룹 ID로 변경
+group = 'io.ourohead'  // 원하는 그룹 ID로 변경
 ```
 
 ### 아티팩트 ID (프로젝트 이름) 변경
@@ -559,7 +579,7 @@ group = 'io.c102'  // 원하는 그룹 ID로 변경
 `settings.gradle` 파일에서:
 
 ```gradle
-rootProject.name = 'your-project-name'
+rootProject.name = 'ourohead'  // 원하는 프로젝트 이름으로 변경
 ```
 
 변경 후 다시 빌드:
