@@ -4,6 +4,7 @@ import EndpointList from './components/EndpointList'
 import EndpointEditor from './components/EndpointEditor'
 import PreviewPanel from './components/PreviewPanel'
 import { getStatusTemplate } from './utils/statusTemplates'
+import { extractData, extractMessage } from './types/api'
 import './App.css'
 
 /**
@@ -29,10 +30,12 @@ function App() {
     try {
       setLoading(true)
       const response = await axios.get('/ourohead/api/definition')
-      setApiDefinition(response.data || { endpoints: [] })
+      // APIResponse에서 데이터 추출
+      const data = extractData(response.data)
+      setApiDefinition(data || { endpoints: [] })
     } catch (error) {
       console.error('Failed to load API definition:', error)
-      alert('Failed to load API definition')
+      alert(`API 정의 로드 실패: ${error.message}`)
     } finally {
       setLoading(false)
     }
@@ -41,11 +44,13 @@ function App() {
   const saveApiDefinition = async () => {
     try {
       setSaving(true)
-      await axios.post('/ourohead/api/definition', apiDefinition)
-      alert('API definition saved successfully!')
+      const response = await axios.post('/ourohead/api/definition', apiDefinition)
+      // APIResponse에서 메시지 추출하여 표시
+      const message = extractMessage(response.data)
+      alert(message)
     } catch (error) {
       console.error('Failed to save API definition:', error)
-      alert('Failed to save API definition')
+      alert(`API 정의 저장 실패: ${error.message}`)
     } finally {
       setSaving(false)
     }
@@ -54,10 +59,12 @@ function App() {
   const generatePreview = async (endpoint) => {
     try {
       const response = await axios.post('/ourohead/api/preview', endpoint)
-      setPreviewData(response.data)
+      // APIResponse에서 데이터 추출
+      const data = extractData(response.data)
+      setPreviewData(data)
     } catch (error) {
       console.error('Failed to generate preview:', error)
-      setPreviewData({ error: 'Failed to generate preview' })
+      setPreviewData({ error: error.message || 'Failed to generate preview' })
     }
   }
 
