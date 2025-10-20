@@ -3,7 +3,7 @@ plugins {
     id 'maven-publish'
 }
 
-group = 'io.ourohead'
+group = 'io.ouroboros'
 version = '1.0.0'
 sourceCompatibility = '17'
 

@@ -1,8 +1,8 @@
-package io.ourohead.mock.service;
+package io.ouroboros.mock.service;
 
-import io.ourohead.web.dto.ApiDefinition;
-import io.ourohead.web.dto.Endpoint;
-import io.ourohead.api.service.ApiYamlParser;
+import io.ouroboros.web.dto.ApiDefinition;
+import io.ouroboros.web.dto.Endpoint;
+import io.ouroboros.api.service.ApiYamlParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

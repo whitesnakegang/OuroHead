@@ -1,4 +1,4 @@
-package io.ourohead.web.dto;
+package io.ouroboros.web.dto;
 
 import lombok.Data;
 import java.util.List;

@@ -1,6 +1,6 @@
-package io.ourohead.api.service;
+package io.ouroboros.api.service;
 
-import io.ourohead.web.dto.ApiDefinition;
+import io.ouroboros.web.dto.ApiDefinition;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import lombok.extern.slf4j.Slf4j;

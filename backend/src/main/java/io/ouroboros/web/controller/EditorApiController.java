@@ -1,9 +1,9 @@
-package io.ourohead.web.controller;
+package io.ouroboros.web.controller;
 
-import io.ourohead.web.dto.ApiDefinition;
-import io.ourohead.web.dto.Endpoint;
-import io.ourohead.api.service.ApiDefinitionService;
-import io.ourohead.mock.service.DummyDataGenerator;
+import io.ouroboros.web.dto.ApiDefinition;
+import io.ouroboros.web.dto.Endpoint;
+import io.ouroboros.api.service.ApiDefinitionService;
+import io.ouroboros.mock.service.DummyDataGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

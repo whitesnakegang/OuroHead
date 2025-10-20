@@ -1,4 +1,4 @@
-package io.ourohead.api.model;
+package io.ouroboros.api.model;
 
 import lombok.Data;
 

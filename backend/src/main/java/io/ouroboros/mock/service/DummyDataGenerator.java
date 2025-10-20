@@ -1,7 +1,7 @@
-package io.ourohead.mock.service;
+package io.ouroboros.mock.service;
 
-import io.ourohead.api.model.Field;
-import io.ourohead.api.model.Response;
+import io.ouroboros.api.model.Field;
+import io.ouroboros.api.model.Response;
 import lombok.extern.slf4j.Slf4j;
 import net.datafaker.Faker;
 import org.springframework.stereotype.Service;

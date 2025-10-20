@@ -1,7 +1,7 @@
-package io.ourohead.config;
+package io.ouroboros.config;
 
-import io.ourohead.api.service.*;
-import io.ourohead.mock.service.*;
+import io.ouroboros.api.service.*;
+import io.ouroboros.mock.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @AutoConfiguration
 @ConditionalOnClass(WebMvcConfigurer.class)
 @ConditionalOnProperty(prefix = "ourohead", name = "enabled", havingValue = "true", matchIfMissing = true)
-@ComponentScan(basePackages = "io.ourohead")
+@ComponentScan(basePackages = "io.ouroboros")
 public class DemoApiAutoConfiguration {
 
     /**

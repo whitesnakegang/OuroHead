@@ -1,4 +1,4 @@
-package io.ourohead.config;
+package io.ouroboros.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

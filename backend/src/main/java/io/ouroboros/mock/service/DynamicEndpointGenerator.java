@@ -1,7 +1,7 @@
-package io.ourohead.mock.service;
+package io.ouroboros.mock.service;
 
-import io.ourohead.web.dto.Endpoint;
-import io.ourohead.api.model.StatusResponse;
+import io.ouroboros.web.dto.Endpoint;
+import io.ouroboros.api.model.StatusResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

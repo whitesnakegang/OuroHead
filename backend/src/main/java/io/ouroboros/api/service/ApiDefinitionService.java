@@ -1,7 +1,7 @@
-package io.ourohead.api.service;
+package io.ouroboros.api.service;
 
-import io.ourohead.web.dto.ApiDefinition;
-import io.ourohead.mock.service.DynamicEndpointRegistrar;
+import io.ouroboros.web.dto.ApiDefinition;
+import io.ouroboros.mock.service.DynamicEndpointRegistrar;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
