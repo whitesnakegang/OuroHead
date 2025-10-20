@@ -3,14 +3,14 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/demoapigen/',  // 중요: assets 경로가 /demoapigen/assets/로 설정됨
+  base: '/ourohead/',  // 중요: assets 경로가 /ourohead/assets/로 설정됨
   build: {
-    outDir: '../src/main/resources/static/demoapigen',
+    outDir: '../backend/src/main/resources/static/ourohead',
     emptyOutDir: true
   },
   server: {
     proxy: {
-      '/demoapigen/api': {
+      '/ourohead/api': {
         target: 'http://localhost:8080',
         changeOrigin: true
       }

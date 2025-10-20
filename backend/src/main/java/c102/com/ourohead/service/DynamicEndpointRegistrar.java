@@ -1,7 +1,7 @@
-package c102.com.demoapigen.service;
+package c102.com.ourohead.service;
 
-import c102.com.demoapigen.model.ApiDefinition;
-import c102.com.demoapigen.model.Endpoint;
+import c102.com.ourohead.model.ApiDefinition;
+import c102.com.ourohead.model.Endpoint;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -34,7 +34,7 @@ public class DynamicEndpointRegistrar {
             ApiDefinition apiDefinition = apiYamlParser.parseApiYaml("classpath:api.yml");
 
             if (apiDefinition == null || apiDefinition.getEndpoints() == null || apiDefinition.getEndpoints().isEmpty()) {
-                log.info("No endpoints to register. You can add endpoints via the web editor at /demoapigen/editor");
+                log.info("No endpoints to register. You can add endpoints via the web editor at /ourohead/editor");
                 return;
             }
 

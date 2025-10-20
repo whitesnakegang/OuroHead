@@ -1,6 +1,6 @@
-package c102.com.demoapigen.service;
+package c102.com.ourohead.service;
 
-import c102.com.demoapigen.model.ApiDefinition;
+import c102.com.ourohead.model.ApiDefinition;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;

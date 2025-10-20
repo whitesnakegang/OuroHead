@@ -1,6 +1,6 @@
-package c102.com.demoapigen.config;
+package c102.com.ourohead.config;
 
-import c102.com.demoapigen.service.*;
+import c102.com.ourohead.service.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -13,15 +13,15 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Slf4j
 @AutoConfiguration
 @ConditionalOnClass(WebMvcConfigurer.class)
-@ConditionalOnProperty(prefix = "demoapigen", name = "enabled", havingValue = "true", matchIfMissing = true)
-@ComponentScan(basePackages = "c102.com.demoapigen")
+@ConditionalOnProperty(prefix = "ourohead", name = "enabled", havingValue = "true", matchIfMissing = true)
+@ComponentScan(basePackages = "c102.com.ourohead")
 public class DemoApiAutoConfiguration {
 
     /**
      * Initializes the auto-configuration and records an initialization message to the application log.
      */
     public DemoApiAutoConfiguration() {
-        log.info("DemoApiGen Auto-configuration initialized");
+        log.info("OuroHead Auto-configuration initialized");
     }
 
     /**

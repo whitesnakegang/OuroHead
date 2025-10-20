@@ -28,7 +28,7 @@ function App() {
   const loadApiDefinition = async () => {
     try {
       setLoading(true)
-      const response = await axios.get('/demoapigen/api/definition')
+      const response = await axios.get('/ourohead/api/definition')
       setApiDefinition(response.data || { endpoints: [] })
     } catch (error) {
       console.error('Failed to load API definition:', error)
@@ -41,7 +41,7 @@ function App() {
   const saveApiDefinition = async () => {
     try {
       setSaving(true)
-      await axios.post('/demoapigen/api/definition', apiDefinition)
+      await axios.post('/ourohead/api/definition', apiDefinition)
       alert('API definition saved successfully!')
     } catch (error) {
       console.error('Failed to save API definition:', error)
@@ -53,7 +53,7 @@ function App() {
 
   const generatePreview = async (endpoint) => {
     try {
-      const response = await axios.post('/demoapigen/api/preview', endpoint)
+      const response = await axios.post('/ourohead/api/preview', endpoint)
       setPreviewData(response.data)
     } catch (error) {
       console.error('Failed to generate preview:', error)
