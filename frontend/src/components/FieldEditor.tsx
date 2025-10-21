@@ -1,55 +1,68 @@
-import React, { useState } from 'react'
-import { getDummyTypeOptions, getDummyTypeByKey } from '../utils/dummyTypes'
-import './FieldEditor.css'
+import React, { useState } from "react";
+import { Field } from "../types";
+import { getDummyTypeOptions, getDummyTypeByKey } from "../utils/dummyTypes";
+import "./FieldEditor.css";
+
+interface FieldEditorProps {
+  fields: Field[];
+  onChange: (newFields: Field[]) => void;
+  isRequestField?: boolean;
+}
 
 /**
  * Render an editable list of fields with per-field type, dummy data selection, examples, and options.
  *
- * @param {Object[]} fields - Array of field definitions; each object may include `name`, `type`, `required`, `defaultValue`, and `fakerType`.
- * @param {(newFields: Object[]) => void} onChange - Called with the updated fields array when any field is added, updated, or deleted.
+ * @param {Field[]} fields - Array of field definitions; each object may include `name`, `type`, `required`, `defaultValue`, and `fakerType`.
+ * @param {(newFields: Field[]) => void} onChange - Called with the updated fields array when any field is added, updated, or deleted.
  * @param {boolean} [isRequestField=false] - When true, show "Required" checkbox and a default value input for each field; otherwise show a fixed default input only for string fields.
  * @returns {JSX.Element} The FieldEditor component UI.
  */
-function FieldEditor({ fields, onChange, isRequestField = false }) {
-  const [selectedDummy, setSelectedDummy] = useState({})
-  const dummyOptions = getDummyTypeOptions()
+function FieldEditor({
+  fields,
+  onChange,
+  isRequestField = false,
+}: FieldEditorProps): JSX.Element {
+  const [selectedDummy, setSelectedDummy] = useState<Record<number, string>>(
+    {}
+  );
+  const dummyOptions = getDummyTypeOptions();
 
-  const addField = () => {
-    onChange([...fields, { name: '', type: 'string' }])
-  }
+  const addField = (): void => {
+    onChange([...fields, { name: "", type: "string" }]);
+  };
 
-  const updateField = (index, updates) => {
-    const newFields = [...fields]
-    newFields[index] = { ...newFields[index], ...updates }
-    onChange(newFields)
-  }
+  const updateField = (index: number, updates: Partial<Field>): void => {
+    const newFields = [...fields];
+    newFields[index] = { ...newFields[index], ...updates };
+    onChange(newFields);
+  };
 
-  const deleteField = (index) => {
-    onChange(fields.filter((_, i) => i !== index))
-  }
+  const deleteField = (index: number): void => {
+    onChange(fields.filter((_, i) => i !== index));
+  };
 
-  const handleDummyChange = (index, dummyKey) => {
-    setSelectedDummy({ ...selectedDummy, [index]: dummyKey })
+  const handleDummyChange = (index: number, dummyKey: string): void => {
+    setSelectedDummy({ ...selectedDummy, [index]: dummyKey });
 
-    if (dummyKey === 'none') {
-      updateField(index, { type: 'string', fakerType: undefined })
+    if (dummyKey === "none") {
+      updateField(index, { type: "string", fakerType: undefined });
     } else {
-      const dummyType = getDummyTypeByKey(dummyKey)
+      const dummyType = getDummyTypeByKey(dummyKey);
       if (dummyType) {
         updateField(index, {
-          type: 'faker',
-          fakerType: dummyType.fakerType
-        })
+          type: "faker",
+          fakerType: dummyType.fakerType,
+        });
       }
     }
-  }
+  };
 
-  const getDummyExample = (index) => {
-    const dummyKey = selectedDummy[index]
-    if (!dummyKey || dummyKey === 'none') return null
-    const dummyType = getDummyTypeByKey(dummyKey)
-    return dummyType ? dummyType.example : null
-  }
+  const getDummyExample = (index: number): string | null => {
+    const dummyKey = selectedDummy[index];
+    if (!dummyKey || dummyKey === "none") return null;
+    const dummyType = getDummyTypeByKey(dummyKey);
+    return dummyType ? dummyType.example : null;
+  };
 
   return (
     <div className="field-editor">
@@ -58,17 +71,17 @@ function FieldEditor({ fields, onChange, isRequestField = false }) {
           <div className="field-row">
             <input
               type="text"
-              value={field.name || ''}
+              value={field.name || ""}
               onChange={(e) => updateField(index, { name: e.target.value })}
               placeholder="Field name (e.g., email)"
               className="field-name-input"
             />
             <select
-              value={field.type || 'string'}
+              value={field.type || "string"}
               onChange={(e) => {
-                updateField(index, { type: e.target.value })
-                if (e.target.value !== 'string' && e.target.value !== 'faker') {
-                  setSelectedDummy({ ...selectedDummy, [index]: 'none' })
+                updateField(index, { type: e.target.value });
+                if (e.target.value !== "string" && e.target.value !== "faker") {
+                  setSelectedDummy({ ...selectedDummy, [index]: "none" });
                 }
               }}
               className="field-type-select"
@@ -81,9 +94,9 @@ function FieldEditor({ fields, onChange, isRequestField = false }) {
               <option value="file">file</option>
             </select>
 
-            {(field.type === 'string' || field.type === 'faker') && (
+            {(field.type === "string" || field.type === "faker") && (
               <select
-                value={selectedDummy[index] || 'none'}
+                value={selectedDummy[index] || "none"}
                 onChange={(e) => handleDummyChange(index, e.target.value)}
                 className="field-dummy-select"
               >
@@ -157,26 +170,32 @@ function FieldEditor({ fields, onChange, isRequestField = false }) {
                 <input
                   type="checkbox"
                   checked={field.required || false}
-                  onChange={(e) => updateField(index, { required: e.target.checked })}
+                  onChange={(e) =>
+                    updateField(index, { required: e.target.checked })
+                  }
                 />
                 Required
               </label>
 
               <input
                 type="text"
-                value={field.defaultValue || ''}
-                onChange={(e) => updateField(index, { defaultValue: e.target.value })}
+                value={field.defaultValue || ""}
+                onChange={(e) =>
+                  updateField(index, { defaultValue: e.target.value })
+                }
                 placeholder="Default value (optional)"
                 className="field-default-input"
               />
             </div>
           ) : (
-            field.type === 'string' && (
+            field.type === "string" && (
               <div className="field-options">
                 <input
                   type="text"
-                  value={field.defaultValue || ''}
-                  onChange={(e) => updateField(index, { defaultValue: e.target.value })}
+                  value={field.defaultValue || ""}
+                  onChange={(e) =>
+                    updateField(index, { defaultValue: e.target.value })
+                  }
                   placeholder="Fixed value (leave empty for random)"
                   className="field-default-input"
                   style={{ flex: 1 }}
@@ -190,7 +209,7 @@ function FieldEditor({ fields, onChange, isRequestField = false }) {
         + Add Field
       </button>
     </div>
-  )
+  );
 }
 
-export default FieldEditor
+export default FieldEditor;
