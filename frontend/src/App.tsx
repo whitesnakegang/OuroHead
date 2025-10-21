@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import EndpointList from "./components/EndpointList";
 import EndpointEditor from "./components/EndpointEditor";
 import PreviewPanel from "./components/PreviewPanel";
 import { getStatusTemplate } from "./utils/statusTemplates";
 import { ApiDefinition, Endpoint, PreviewData } from "./types";
+import { extractData, extractMessage } from "./types/api";
 import "./App.css";
 
 /**
@@ -13,9 +14,9 @@ import "./App.css";
  * Manages API definition state, selected endpoint, preview data, and loading/saving indicators; triggers network
  * requests to load and persist the API definition and to generate endpoint previews.
  *
- * @returns {JSX.Element} The rendered App component.
+ * @returns The rendered App component.
  */
-function App(): JSX.Element {
+function App() {
   const [apiDefinition, setApiDefinition] = useState<ApiDefinition>({
     endpoints: [],
   });
@@ -34,7 +35,8 @@ function App(): JSX.Element {
     try {
       setLoading(true);
       const response = await axios.get("/ourohead/api/definition");
-      setApiDefinition(response.data || { endpoints: [] });
+      const data = extractData<ApiDefinition>(response.data);
+      setApiDefinition(data || { endpoints: [] });
     } catch (error) {
       console.error("Failed to load API definition:", error);
       alert("Failed to load API definition");
@@ -46,11 +48,16 @@ function App(): JSX.Element {
   const saveApiDefinition = async (): Promise<void> => {
     try {
       setSaving(true);
-      await axios.post("/ourohead/api/definition", apiDefinition);
-      alert("API definition saved successfully!");
+      const response = await axios.post("/ourohead/api/definition", apiDefinition);
+      const message = extractMessage(response.data);
+      alert(message);
     } catch (error) {
       console.error("Failed to save API definition:", error);
-      alert("Failed to save API definition");
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert("Failed to save API definition");
+      }
     } finally {
       setSaving(false);
     }
@@ -59,7 +66,8 @@ function App(): JSX.Element {
   const generatePreview = async (endpoint: Endpoint): Promise<void> => {
     try {
       const response = await axios.post("/ourohead/api/preview", endpoint);
-      setPreviewData(response.data);
+      const data = extractData<PreviewData>(response.data);
+      setPreviewData(data);
     } catch (error) {
       console.error("Failed to generate preview:", error);
       setPreviewData({ error: "Failed to generate preview" });
