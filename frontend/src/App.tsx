@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import EndpointList from "./components/EndpointList";
 import EndpointEditor from "./components/EndpointEditor";
 import PreviewPanel from "./components/PreviewPanel";
 import { getStatusTemplate } from "./utils/statusTemplates";
 import { ApiDefinition, Endpoint, PreviewData } from "./types";
-import { extractData, extractMessage, extractStatus } from "./types/api";
+import { extractData, extractMessage } from "./types/api";
 import "./App.css";
 
 /**
@@ -14,9 +14,9 @@ import "./App.css";
  * Manages API definition state, selected endpoint, preview data, and loading/saving indicators; triggers network
  * requests to load and persist the API definition and to generate endpoint previews.
  *
- * @returns {JSX.Element} The rendered App component.
+ * @returns The rendered App component.
  */
-function App(): JSX.Element {
+function App() {
   const [apiDefinition, setApiDefinition] = useState<ApiDefinition>({
     endpoints: [],
   });
